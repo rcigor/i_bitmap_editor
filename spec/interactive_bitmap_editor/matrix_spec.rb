@@ -16,7 +16,17 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
   it 'initializes all pixels with "0"' do
     matrix = described_class.new(5,5)
 
-    expect(matrix.pixel(0,0)).to eq(0)
-    expect(matrix.pixel(2,4)).to eq(0)
+    expect(matrix.pixel(0,0).colour).to eq(0)
+    expect(matrix.pixel(2,4).colour).to eq(0)
+  end
+
+  it 'allows to change the colour of a pixel' do
+    matrix = described_class.new(5,5)
+
+    expect(matrix.pixel(2,4).colour).to eq(0)
+
+    matrix.pixel(2,4).colour = 'A'
+
+    expect(matrix.pixel(2,4).colour).to eq('A')
   end
 end

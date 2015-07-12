@@ -8,7 +8,7 @@ module InteractiveBitmapEditor
       @number_of_rows = number_of_rows
       @number_of_cols = number_of_cols
 
-      @matrix         = Array.new(number_of_rows, Array.new(number_of_cols, 0))
+      @matrix         = Array.new(number_of_rows, Array.new(number_of_cols, Pixel.new(0)))
     end
 
     def pixel(x,y)
@@ -18,5 +18,13 @@ module InteractiveBitmapEditor
     private
 
     attr_reader :number_of_rows, :number_of_cols, :matrix
+  end
+
+  class Pixel
+    def initialize(colour)
+      @colour = colour
+    end
+
+    attr_accessor :colour
   end
 end
