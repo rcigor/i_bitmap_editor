@@ -19,6 +19,14 @@ module InteractiveBitmapEditor
       initialize_matrix
     end
 
+    def contents
+      @matrix.map do |row|
+        row.map do |pixel|
+          pixel.colour
+        end.join('')
+      end.join("\n")
+    end
+
     private
 
     attr_reader :number_of_rows, :number_of_cols, :matrix
