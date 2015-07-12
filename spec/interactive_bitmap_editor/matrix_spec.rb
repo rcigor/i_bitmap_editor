@@ -78,6 +78,23 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     )
   end
 
+  it 'latest line will overide previous ones' do
+    matrix.draw_horizontal(1, 1, 5, 'F')
+    matrix.draw_horizontal(1, 1, 5, 'B')
+
+    matrix.draw_vertical(2, 1, 3, 'H')
+
+    expect(matrix.contents).to eq(
+      ignore_indentation(
+        "BHBBB
+         OHOOO
+         OHOOO
+         OOOOO
+         OOOOO"
+      )
+    )
+  end
+
   private
   def ignore_indentation(str)
     str.gsub(/[^\S\n]/, '')
