@@ -32,7 +32,11 @@ module InteractiveBitmapEditor
     attr_reader :number_of_rows, :number_of_cols, :matrix
 
     def initialize_matrix
-      @matrix         = Array.new(number_of_rows, Array.new(number_of_cols, Pixel.new('O')))
+      @matrix = Array.new(number_of_rows) do
+        Array.new(number_of_cols) do
+          Pixel.new('O')
+        end
+      end
     end
   end
 
