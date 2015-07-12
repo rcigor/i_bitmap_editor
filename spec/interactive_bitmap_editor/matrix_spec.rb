@@ -16,16 +16,15 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
   end
 
   it 'initializes all pixels with "O"' do
-    expect(matrix.contents)
-      .to eq(
-        ignore_indentation(
-          "OOOOO
-           OOOOO
-           OOOOO
-           OOOOO
-           OOOOO"
-        )
+    expect(matrix.contents).to eq(
+      ignore_indentation(
+        "OOOOO
+         OOOOO
+         OOOOO
+         OOOOO
+         OOOOO"
       )
+    )
   end
 
   it 'allows colour to be set pixel by pixel' do
@@ -39,6 +38,20 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     matrix.clear
 
     expect(matrix.pixel(2,4).colour).to eq('O')
+  end
+
+  it 'allows to draw vertical lines' do
+    matrix.draw_vertical(3, 2, 4, 'Z')
+
+    expect(matrix.contents).to eq(
+      ignore_indentation(
+        "OOOOO
+         OOZOO
+         OOZOO
+         OOZOO
+         OOOOO"
+      )
+    )
   end
 
   private

@@ -27,6 +27,12 @@ module InteractiveBitmapEditor
       end.join("\n")
     end
 
+    def draw_vertical(y, x1, x2, colour)
+      @matrix[x1-1..x2-1].each do |column|
+        column[y-1].colour = colour
+      end
+    end
+
     private
 
     attr_reader :number_of_rows, :number_of_cols, :matrix
