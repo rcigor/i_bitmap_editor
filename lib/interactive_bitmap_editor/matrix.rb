@@ -8,7 +8,7 @@ module InteractiveBitmapEditor
       @number_of_rows = number_of_rows
       @number_of_cols = number_of_cols
 
-      @matrix         = Array.new(number_of_rows, Array.new(number_of_cols, Pixel.new(0)))
+      @matrix         = Array.new(number_of_rows, Array.new(number_of_cols, Pixel.new('O')))
     end
 
     def pixel(x,y)
