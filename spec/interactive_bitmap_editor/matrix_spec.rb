@@ -50,14 +50,30 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
 
   it 'allows to draw vertical lines' do
     matrix.draw_vertical(3, 2, 4, 'Z')
+    matrix.draw_vertical(1, 1, 5, 'X')
 
     expect(matrix.contents).to eq(
       ignore_indentation(
-        "OOOOO
-         OOZOO
-         OOZOO
-         OOZOO
-         OOOOO"
+        "XOOOO
+         XOZOO
+         XOZOO
+         XOZOO
+         XOOOO"
+      )
+    )
+  end
+
+  it 'allows to draw horizontal lines' do
+    matrix.draw_horizontal(1, 1, 5, 'F')
+    matrix.draw_horizontal(5, 2, 5, 'F')
+
+    expect(matrix.contents).to eq(
+      ignore_indentation(
+        "FFFFF
+         OOOOO
+         OOOOO
+         OOOOO
+         OFFFF"
       )
     )
   end

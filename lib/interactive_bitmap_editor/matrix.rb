@@ -33,6 +33,12 @@ module InteractiveBitmapEditor
       end
     end
 
+    def draw_horizontal(x, y1, y2, colour)
+      @matrix[x-1][y1-1..y2-1].each do |pixel|
+        pixel.colour = colour
+      end
+    end
+
     private
 
     attr_reader :number_of_rows, :number_of_cols, :matrix
