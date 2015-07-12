@@ -28,7 +28,7 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
   end
 
   it 'allows colour to be set pixel by pixel' do
-    matrix.pixel(2,4).colour = 'A'
+    matrix.pixel(2, 4).colour = 'A'
 
     expect(matrix.contents).to eq(
       ignore_indentation(
@@ -42,10 +42,10 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
   end
 
   it 'clears' do
-    matrix.pixel(2,4).colour = 'A'
+    matrix.pixel(2, 4).colour = 'A'
     matrix.clear
 
-    expect(matrix.pixel(2,4).colour).to eq('O')
+    expect(matrix.pixel(2, 4).colour).to eq('O')
   end
 
   it 'allows to draw vertical lines' do
@@ -93,6 +93,41 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
          OOOOO"
       )
     )
+  end
+
+  context 'bitmap regions' do
+    it 'propagates colour to all pixels of a region' do
+      matrix.pixel(3, 2).colour = 'W'
+      matrix.pixel(4, 3).colour = 'Q'
+      matrix.pixel(5, 4).colour = 'T'
+
+      matrix.fill_region(3, 3, 'Z')
+      expect(matrix.contents).to eq(
+        ignore_indentation(
+          "ZZZZZ
+           ZZZZZ
+           ZWZZZ
+           ZZQZZ
+           ZZZTZ"
+        )
+      )
+    end
+
+    it 'does not propagate colour aslant' do
+      matrix.draw_vertical(1, 2, 5, 'B')
+      matrix.draw_horizontal(1, 2, 5, 'B')
+
+      matrix.fill_region(3, 3, 'Z')
+      expect(matrix.contents).to eq(
+        ignore_indentation(
+          "OBBBB
+           BZZZZ
+           BZZZZ
+           BZZZZ
+           BZZZZ"
+        )
+      )
+    end
   end
 
   private
