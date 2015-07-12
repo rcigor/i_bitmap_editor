@@ -30,7 +30,15 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
   it 'allows colour to be set pixel by pixel' do
     matrix.pixel(2,4).colour = 'A'
 
-    expect(matrix.pixel(2,4).colour).to eq('A')
+    expect(matrix.contents).to eq(
+      ignore_indentation(
+        "OOOOO
+         OOOAO
+         OOOOO
+         OOOOO
+         OOOOO"
+      )
+    )
   end
 
   it 'clears' do

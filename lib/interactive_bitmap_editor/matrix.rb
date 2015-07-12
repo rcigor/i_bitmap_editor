@@ -12,7 +12,7 @@ module InteractiveBitmapEditor
     end
 
     def pixel(x,y)
-      @matrix[x][y]
+      @matrix[x-1][y-1]
     end
 
     def clear
