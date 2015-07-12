@@ -20,10 +20,18 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     expect(matrix.pixel(2,4).colour).to eq('O')
   end
 
-  it 'allows to change the colour of a pixel' do
+  it 'allows colour to be set pixel by pixel' do
     matrix = described_class.new(5,5)
     matrix.pixel(2,4).colour = 'A'
 
     expect(matrix.pixel(2,4).colour).to eq('A')
+  end
+
+  it 'clears' do
+    matrix = described_class.new(5,5)
+    matrix.pixel(2,4).colour = 'A'
+    matrix.clear
+
+    expect(matrix.pixel(2,4).colour).to eq('O')
   end
 end
