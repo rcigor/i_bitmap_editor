@@ -95,8 +95,8 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     )
   end
 
-  context 'regions' do
-    it 'propagates colour to all pixels of a region' do
+  describe 'regions' do
+    it 'propagates colour only to the pixels of the region' do
       matrix.pixel(3, 2).colour = 'W'
       matrix.pixel(4, 3).colour = 'Q'
       matrix.pixel(5, 4).colour = 'T'
@@ -111,6 +111,25 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
            ZZZTZ"
         )
       )
+    end
+
+    context 'when a region outlines another' do
+      it 'propagates colour only to the pixels of the region' do
+        matrix.draw_vertical(2, 2, 4, 'H')
+        matrix.draw_vertical(3, 2, 5, 'H')
+        matrix.draw_vertical(4, 2, 4, 'H')
+
+        matrix.fill_region(2, 5, 'T')
+        expect(matrix.contents).to eq(
+          ignore_indentation(
+            "TTTTT
+             THHHT
+             THHHT
+             THHHT
+             TTHTT"
+          )
+        )
+      end
     end
 
     it 'does not propagate colour aslant' do
