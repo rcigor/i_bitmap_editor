@@ -3,7 +3,7 @@ require 'interactive_bitmap_editor/matrix'
 RSpec.describe InteractiveBitmapEditor::Matrix do
   let(:matrix) { described_class.new(5, 5) }
 
-  it 'only accepts dimensions between 1 and 250' do
+  it 'accepts dimensions between 1 and 250 only' do
     expect{described_class.new(280, 280)}
       .to raise_error('Dimensions over limits')
     expect{described_class.new(251, 5)}
@@ -27,7 +27,7 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     )
   end
 
-  it 'allows colour to be set pixel by pixel' do
+  it 'sets colour pixel by pixel' do
     matrix.pixel(2, 4).colour = 'A'
 
     expect(matrix.contents).to eq(
@@ -48,7 +48,7 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     expect(matrix.pixel(2, 4).colour).to eq('O')
   end
 
-  it 'allows to draw vertical lines' do
+  it 'draws vertical lines' do
     matrix.draw_vertical(3, 2, 4, 'Z')
     matrix.draw_vertical(1, 1, 5, 'X')
 
@@ -63,7 +63,7 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     )
   end
 
-  it 'allows to draw horizontal lines' do
+  it 'draws horizontal lines' do
     matrix.draw_horizontal(1, 1, 5, 'F')
     matrix.draw_horizontal(5, 2, 5, 'F')
 
@@ -78,7 +78,7 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     )
   end
 
-  it 'latest line will overide previous ones' do
+  it 'overrides previously drawn lines' do
     matrix.draw_horizontal(1, 1, 5, 'F')
     matrix.draw_horizontal(1, 1, 5, 'B')
 
@@ -95,7 +95,7 @@ RSpec.describe InteractiveBitmapEditor::Matrix do
     )
   end
 
-  context 'bitmap regions' do
+  context 'regions' do
     it 'propagates colour to all pixels of a region' do
       matrix.pixel(3, 2).colour = 'W'
       matrix.pixel(4, 3).colour = 'Q'
