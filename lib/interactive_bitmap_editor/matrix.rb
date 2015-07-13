@@ -1,3 +1,5 @@
+require 'interactive_bitmap_editor/pixel'
+
 module InteractiveBitmapEditor
   class Matrix
     def initialize(number_of_rows, number_of_cols)
@@ -80,13 +82,5 @@ module InteractiveBitmapEditor
         yield x,y
       end
     end
-  end
-
-  class Pixel
-    def initialize(colour)
-      @colour = colour
-    end
-
-    attr_accessor :colour
   end
 end
