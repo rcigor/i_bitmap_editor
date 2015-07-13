@@ -1,6 +1,6 @@
-require 'interactive_bitmap_editor/matrix'
+require 'interactive_bitmap_editor/matrix/matrix'
 
-RSpec.describe InteractiveBitmapEditor::Matrix do
+RSpec.describe InteractiveBitmapEditor::Matrix::Matrix do
   let(:matrix) { described_class.new(5, 5) }
 
   it 'accepts dimensions between 1 and 250 only' do
