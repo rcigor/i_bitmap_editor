@@ -62,7 +62,7 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
 
       expect(printer).to receive(:print).with('TestContent')
 
-      subject.execute("P")
+      subject.execute("S")
     end
   end
 

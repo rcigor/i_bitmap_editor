@@ -41,7 +41,7 @@ module InteractiveBitmapEditor
         validate_numeric(x, y)
 
         matrix.fill_region(x, y, colour)
-      when 'P'
+      when 'S'
         @printer.print(matrix.contents)
       when 'X'
         raise InteractiveBitmapEditor::Exceptions::AbortProgram.new
