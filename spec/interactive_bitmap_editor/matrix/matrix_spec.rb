@@ -1,15 +1,16 @@
 require 'interactive_bitmap_editor/matrix/matrix'
+require 'interactive_bitmap_editor/exceptions'
 
 RSpec.describe InteractiveBitmapEditor::Matrix::Matrix do
   let(:matrix) { described_class.new(5, 5) }
 
   it 'accepts dimensions between 1 and 250 only' do
     expect{described_class.new(280, 280)}
-      .to raise_error('Dimensions over limits')
+      .to raise_error(InteractiveBitmapEditor::Exceptions::WrongDimensions)
     expect{described_class.new(251, 5)}
-      .to raise_error('Dimensions over limits')
+      .to raise_error(InteractiveBitmapEditor::Exceptions::WrongDimensions)
     expect{described_class.new(20, -5)}
-      .to raise_error('Dimensions over limits')
+      .to raise_error(InteractiveBitmapEditor::Exceptions::WrongDimensions)
 
     expect{described_class.new(5, 5)}
       .not_to raise_error

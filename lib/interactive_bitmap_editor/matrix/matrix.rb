@@ -1,4 +1,5 @@
 require 'interactive_bitmap_editor/matrix/pixel'
+require 'interactive_bitmap_editor/exceptions'
 
 module InteractiveBitmapEditor
   module Matrix
@@ -6,7 +7,9 @@ module InteractiveBitmapEditor
       def initialize(number_of_rows, number_of_cols)
         dimensions = [number_of_rows, number_of_cols]
 
-        raise 'Dimensions over limits' if dimensions.max > 250 || dimensions.min < 1
+        if dimensions.max > 250 || dimensions.min < 1
+          raise InteractiveBitmapEditor::Exceptions::WrongDimensions.new
+        end
 
         @number_of_rows = number_of_rows
         @number_of_cols = number_of_cols
