@@ -11,35 +11,61 @@ module InteractiveBitmapEditor
       opts = str.split(' ')
       case opts.shift.upcase
       when 'I'
-        m, n = opts.map(&:to_i)
+        m, n = numeric_params(opts)
 
+        validate_numeric(m, n)
         @matrix = InteractiveBitmapEditor::Matrix::Matrix.new(m, n)
       when 'C'
         @matrix.clear
       when 'V'
         colour    = opts.pop
-        y, x1, x2 = opts.map(&:to_i)
+        x, y1, y2 = numeric_params(opts)
 
-        @matrix.draw_vertical(y, x1, x2, colour)
+        validate_colour(colour)
+        validate_numeric(x, y1, y2)
+
+        @matrix.draw_vertical(x, y1, y2, colour)
       when 'H'
         colour    = opts.pop
-        x, y1, y2 = opts.map(&:to_i)
+        y, x1, x2 = numeric_params(opts)
 
-        @matrix.draw_horizontal(x, y1, y2, colour)
-      when 'R'
+        validate_colour(colour)
+        validate_numeric(y, x1, x2)
+
+        @matrix.draw_horizontal(y, x1, x2, colour)
+      when 'F'
         colour    = opts.pop
-        x, y      = opts.map(&:to_i)
+        x, y      = numeric_params(opts)
+
+        validate_colour(colour)
+        validate_numeric(x, y)
 
         @matrix.fill_region(x, y, colour)
       when 'P'
         @printer.print @matrix.contents
       when 'X'
-        raise InteractiveBitmapEditor::Exceptions::AbortProgram
+        raise InteractiveBitmapEditor::Exceptions::AbortProgram.new
       else
-        raise InteractiveBitmapEditor::Exceptions::UnknownCommand
+        raise InteractiveBitmapEditor::Exceptions::UnknownCommand.new
+
       end
     end
 
     private
+    def validate_numeric(*numbers)
+      unless numbers.all?{|n|n.is_a?(Numeric)}
+        raise InteractiveBitmapEditor::Exceptions::WrongParameters.new
+      end
+    end
+
+    def validate_colour(colour)
+      unless colour.size == 1 && colour =~ /[A-Za-z]/
+        raise InteractiveBitmapEditor::Exceptions::WrongParameters.new
+      end
+    end
+
+    def numeric_params opts
+      opts.map(&:to_i)
+    end
   end
 end

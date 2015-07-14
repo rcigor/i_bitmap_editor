@@ -55,7 +55,7 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
         .with(1, 4, 'G')
         .and_return(matrix)
 
-      subject.execute("R 1 4 G")
+      subject.execute("F 1 4 G")
     end
 
     it 'understands printing instruction' do
@@ -65,6 +65,25 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
       expect(printer).to receive(:print).with('TestContent')
 
       subject.execute("P")
+    end
+  end
+
+  describe 'unexpected parameters' do
+    subject do
+      instance = described_class.new(printer)
+      instance.execute("I 10 10")
+      instance
+    end
+
+    it 'raises when unexpected params are passed' do
+      expect{ subject.execute('I ') }
+        .to raise_error(InteractiveBitmapEditor::Exceptions::WrongParameters)
+
+      expect{ subject.execute('V 8 ') }
+        .to raise_error(InteractiveBitmapEditor::Exceptions::WrongParameters)
+
+      expect{ subject.execute('F L ') }
+        .to raise_error(InteractiveBitmapEditor::Exceptions::WrongParameters)
     end
   end
 end
