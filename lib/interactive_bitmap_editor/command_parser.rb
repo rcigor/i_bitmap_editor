@@ -2,8 +2,8 @@ require 'interactive_bitmap_editor/matrix/matrix'
 
 module InteractiveBitmapEditor
   class CommandParser
-    def initialize(matrix=nil)
-      @matrix = matrix
+    def initialize(printer)
+      @printer = printer
     end
 
     def parse(str)
@@ -25,6 +25,13 @@ module InteractiveBitmapEditor
         x, y1, y2 = opts.map(&:to_i)
 
         @matrix.draw_horizontal(x, y1, y2, colour)
+      when 'R'
+        colour    = opts.pop
+        x, y      = opts.map(&:to_i)
+
+        @matrix.fill_region(x, y, colour)
+      when 'P'
+        @printer.print @matrix.contents
       end
     end
 
