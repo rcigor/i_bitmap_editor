@@ -42,7 +42,7 @@ module InteractiveBitmapEditor
 
         matrix.fill_region(x, y, colour)
       when 'S'
-        @printer.print(matrix.contents)
+        @printer.print("#{matrix.contents}\n")
       when 'X'
         raise InteractiveBitmapEditor::Exceptions::AbortProgram.new
       when 'Q'

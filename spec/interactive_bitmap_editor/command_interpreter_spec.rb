@@ -60,7 +60,7 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
       allow(matrix).to receive(:contents)
         .and_return('TestContent')
 
-      expect(printer).to receive(:print).with('TestContent')
+      expect(printer).to receive(:print).with("TestContent\n")
 
       subject.execute("S")
     end
