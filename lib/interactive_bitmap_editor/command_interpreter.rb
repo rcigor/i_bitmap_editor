@@ -1,12 +1,12 @@
 require 'interactive_bitmap_editor/matrix/matrix'
 
 module InteractiveBitmapEditor
-  class CommandParser
+  class CommandInterpreter
     def initialize(printer)
       @printer = printer
     end
 
-    def parse(str)
+    def execute(str)
       opts = str.split(' ')
       case opts.shift.upcase
       when 'I'
