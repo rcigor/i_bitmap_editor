@@ -5,10 +5,14 @@ require 'interactive_bitmap_editor/io/printer'
 RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
   let(:printer) { instance_double(InteractiveBitmapEditor::IO::Printer, print: nil) }
 
+  subject do
+    described_class.new(printer)
+  end
+
   it 'creates matrix from instruction' do
     expect(InteractiveBitmapEditor::Matrix::Matrix).to receive(:new).with(8, 29)
 
-    described_class.new(printer).execute(" I  8 29")
+    subject.execute(" I  8 29")
   end
 
   describe 'commands that mutate the matrix' do
@@ -19,12 +23,6 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
     before do
       allow(InteractiveBitmapEditor::Matrix::Matrix).to receive(:new)
         .and_return(matrix)
-    end
-
-    subject do
-      instance = described_class.new(printer)
-      instance.execute("I 10 10")
-      instance
     end
 
     it 'understands clear command' do
@@ -68,13 +66,15 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
     end
   end
 
-  describe 'unexpected parameters' do
-    subject do
-      instance = described_class.new(printer)
-      instance.execute("I 10 10")
-      instance
-    end
+  it 'understands help command' do
+    allow(File).to receive(:read).and_return('test file content')
 
+    expect(printer).to receive(:print).with("test file content\n")
+
+    subject.execute("Q")
+  end
+
+  describe 'unexpected parameters' do
     it 'raises when unexpected params are passed' do
       expect{ subject.execute('I ') }
         .to raise_error(InteractiveBitmapEditor::Exceptions::WrongParameters)
