@@ -1,4 +1,5 @@
 require 'interactive_bitmap_editor/matrix/matrix'
+require 'interactive_bitmap_editor/exceptions'
 
 module InteractiveBitmapEditor
   class CommandInterpreter
@@ -32,6 +33,10 @@ module InteractiveBitmapEditor
         @matrix.fill_region(x, y, colour)
       when 'P'
         @printer.print @matrix.contents
+      when 'X'
+        raise InteractiveBitmapEditor::Exceptions::AbortProgram
+      else
+        raise InteractiveBitmapEditor::Exceptions::UnknownCommand
       end
     end
 
