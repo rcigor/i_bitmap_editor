@@ -86,4 +86,13 @@ RSpec.describe InteractiveBitmapEditor::CommandInterpreter do
         .to raise_error(InteractiveBitmapEditor::Exceptions::WrongParameters)
     end
   end
+
+  describe 'unsupported commands' do
+    it 'raises when unsupported commands are requested' do
+      expect{ subject.execute('Z') }
+        .to raise_error(InteractiveBitmapEditor::Exceptions::UnknownCommand)
+      expect{ subject.execute('') }
+        .to raise_error(InteractiveBitmapEditor::Exceptions::UnknownCommand)
+    end
+  end
 end

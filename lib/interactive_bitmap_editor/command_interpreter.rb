@@ -9,7 +9,7 @@ module InteractiveBitmapEditor
 
     def execute(str)
       opts = str.split(' ')
-      case opts.shift.upcase
+      case opts.shift.to_s.upcase
       when 'I'
         m, n = numeric_params(opts)
 
